@@ -72,62 +72,105 @@
     // Her 60 saniyede (60000 milisaniye) bir bilgiyi değiştir
     setInterval(rastgeleBilgiGoster, 60000);
 </script>
+<style>
+    #oyunBittiPaneli {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        display: none; /* Başlangıçta gizli */
+    }
+</style>
+
 <h1>Zıpla, Çöp Adam, Zıpla!</h1>
 <p>Skorun: <span id="skor">0</span></p>
-
-<div id="oyunAlani" style="width: 300px; height: 150px; border: 2px solid black; position: relative; overflow: hidden; background-color: #f0f0f0;">
+<div id="oyunAlani" style="width: 300px; height: 150px; border: 2px solid black; position: relative; overflow: hidden; background-color: #f0f0f0; margin: 0 auto;">
     <div id="karakter" style="width: 20px; height: 20px; background-color: red; position: absolute; bottom: 0;"></div>
     <div id="engel" style="width: 15px; height: 30px; background-color: blue; position: absolute; bottom: 0; left: 300px;"></div>
+    <div id="oyunBittiPaneli">
+        <h2>Oyun Bitti!</h2>
+        <p>Skorun: <span id="sonSkor">0</span></p>
+        <button onclick="yenidenBasla()">Yeniden Başla</button>
+    </div>
 </div>
-
 <button onclick="zipla()">Zıpla!</button>
+
 <script>
     var karakter = document.getElementById("karakter");
     var engel = document.getElementById("engel");
     var skorSpan = document.getElementById("skor");
+    var sonSkorSpan = document.getElementById("sonSkor");
+    var oyunBittiPaneli = document.getElementById("oyunBittiPaneli");
     var skor = 0;
+    var zipliyor = false;
+    var oyunDongusu;
 
     function zipla() {
-        if (!karakter.classList.contains("zipliyor")) {
-            karakter.classList.add("zipliyor");
-            setTimeout(function() {
-                karakter.classList.remove("zipliyor");
-            }, 500);
+        if (!zipliyor) {
+            zipliyor = true;
+            var pozisyon = 0;
+            var yuksel = setInterval(yukari, 10);
+            
+            function yukari() {
+                if (pozisyon >= 80) {
+                    clearInterval(yuksel);
+                    var dus = setInterval(asagi, 10);
+                } else {
+                    pozisyon += 4;
+                    karakter.style.bottom = pozisyon + "px";
+                }
+            }
+
+            function asagi() {
+                if (pozisyon <= 0) {
+                    clearInterval(dus);
+                    zipliyor = false;
+                } else {
+                    pozisyon -= 4;
+                    karakter.style.bottom = pozisyon + "px";
+                }
+            }
         }
     }
-
-    var ziplamaAnimasyonu = document.createElement("style");
-    ziplamaAnimasyonu.innerHTML = `
-    .zipliyor {
-        animation: ziplama 0.5s ease;
+    
+    // Oyunun başlangıç döngüsü
+    function baslat() {
+        oyunDongusu = setInterval(function() {
+            var karakterSol = parseInt(window.getComputedStyle(karakter).getPropertyValue("left"));
+            var karakterAlt = parseInt(window.getComputedStyle(karakter).getPropertyValue("bottom"));
+            var engelSol = parseInt(window.getComputedStyle(engel).getPropertyValue("left"));
+    
+            engel.style.left = (engelSol - 5) + "px";
+    
+            if (engelSol < -15) {
+                engel.style.left = "300px";
+                skor++;
+                skorSpan.innerText = skor;
+            }
+    
+            if (engelSol < karakterSol + 20 && engelSol > karakterSol && karakterAlt <= 20) {
+                oyunBittiPaneli.style.display = "block";
+                sonSkorSpan.innerText = skor;
+                clearInterval(oyunDongusu);
+            }
+        }, 20);
     }
-    @keyframes ziplama {
-        0% { bottom: 0px; }
-        50% { bottom: 80px; }
-        100% { bottom: 0px; }
-    }`;
-    document.head.appendChild(ziplamaAnimasyonu);
+    
+    // Yeniden Başla Fonksiyonu
+    function yenidenBasla() {
+        skor = 0;
+        skorSpan.innerText = 0;
+        engel.style.left = "300px";
+        oyunBittiPaneli.style.display = "none";
+        baslat();
+    }
+    
+    // Sayfa yüklendiğinde oyunu başlat
+    baslat();
+                      </script>
 
-    // Engelin hareketi
-    var engelHareketi = setInterval(function() {
-        var karakterSol = parseInt(window.getComputedStyle(karakter).getPropertyValue("left"));
-        var karakterAlt = parseInt(window.getComputedStyle(karakter).getPropertyValue("bottom"));
-        var engelSol = parseInt(window.getComputedStyle(engel).getPropertyValue("left"));
-
-        engel.style.left = (engelSol - 5) + "px";
-
-        if (engelSol < -15) {
-            engel.style.left = "300px";
-            skor++;
-            skorSpan.innerText = skor;
-        }
-
-        if (engelSol < karakterSol + 20 && engelSol > karakterSol && karakterAlt <= 0) {
-            alert("Oyun bitti! Skorun: " + skor);
-            skor = 0;
-            skorSpan.innerText = 0;
-            engel.style.left = "300px";
-        }
-    }, 20);
-      </script>
-      
