@@ -46,3 +46,29 @@
       }
     }
 </script>
+<h1>Rastgele Bilgi Köşesi</h1>
+<p id="rastgeleBilgi" style="font-size: 18px; font-weight: bold;">
+    İlk bilgi yükleniyor...
+</p>
+<script>
+    var bilgiler = [
+        "Jüpiter'in uydusu olan Ganymede, Merkür gezegeninden daha büyüktür.",
+        "Ahtapotların üç kalbi vardır.",
+        "Dünyadaki en eski evcil hayvan, köpektir.",
+        "Kâğıt para, sanılanın aksine kâğıttan değil, pamuktan yapılır.",
+        "Koyunlar diğer koyunların yüzlerini hatırlayabilir.",
+        "Çikolata, köpekler için ölümcül olabilir."
+    ];
+
+    function rastgeleBilgiGoster() {
+        var rastgeleIndex = Math.floor(Math.random() * bilgiler.length);
+        var secilenBilgi = bilgiler[rastgeleIndex];
+        document.getElementById("rastgeleBilgi").innerText = secilenBilgi;
+    }
+
+    // Sayfa ilk yüklendiğinde bir bilgi göster
+    rastgeleBilgiGoster();
+
+    // Her 60 saniyede (60000 milisaniye) bir bilgiyi değiştir
+    setInterval(rastgeleBilgiGoster, 60000);
+</script>
