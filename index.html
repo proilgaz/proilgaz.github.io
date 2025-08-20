@@ -21,3 +21,28 @@
         }
     }
 </script>
+         <h1>Kendi Rekorunu Kır!</h1>
+<p>
+  Tıklama Sayısı: <span id="puan">0</span>
+</p>
+<p>
+  En Yüksek Skorun: <span id="enYuksekSkor">0</span>
+</p>
+<button onclick="tikla()">Tıkla!</button>
+<script>
+    var puan = 0;
+    var enYuksekSkor = localStorage.getItem("enYuksekSkor") || 0;
+
+    document.getElementById("enYuksekSkor").innerText = enYuksekSkor;
+
+    function tikla() {
+      puan = puan + 1;
+      document.getElementById("puan").innerText = puan;
+
+      if (puan > enYuksekSkor) {
+        enYuksekSkor = puan;
+        document.getElementById("enYuksekSkor").innerText = enYuksekSkor;
+        localStorage.setItem("enYuksekSkor", enYuksekSkor);
+      }
+    }
+</script>
