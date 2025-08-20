@@ -9,3 +9,15 @@
     <p>Bu benim GitHub Pages sitem.</p>
   </body>
 </html>
+<button onclick="sifreyiSor()">Emir Ver</button>
+<script>
+    function sifreyiSor() {
+        var sifre = prompt("Lütfen şifreyi giriniz:");
+        if (sifre === "proilgaz") {
+            alert("Şifre doğru! Giriş yapılıyor...");
+            window.location.href = "yonetim_paneli.html";
+        } else {
+            alert("Yanlış şifre! Tekrar dene.");
+        }
+    }
+</script>
