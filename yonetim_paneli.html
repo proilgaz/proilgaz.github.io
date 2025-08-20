@@ -1,48 +1,91 @@
-<h1>Gizli Kontrol Sayfası! Burası sana özel.</h1>
-<h1>Buraya Çizebilirsin!</h1>
-<canvas id="cizimAlani" width="350" height="250" style="border:1px solid #000;"></canvas>
-<script>
-    var cizimAlani = document.getElementById('cizimAlani');
-    var cizim = cizimAlani.getContext('2d');
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Yönetim Paneli</title>
+</head>
+<body>
+    <h1>Gizli Kontrol Sayfası! Burası sana özel.</h1>
+    
+    <hr> <h1>Buraya Çizebilirsin!</h1>
+    <canvas id="cizimAlani" width="350" height="250" style="border:1px solid #000;"></canvas>
 
-    var cizimYapiliyor = false;
+    <hr> <h1>Bana soru sor!</h1>
+    <input type="text" id="soruInput" placeholder="Sorunu buraya yaz...">
+    <button onclick="cevapla()">Sor</button>
+    <p id="cevap" style="font-weight: bold;"></p>
 
-    cizimAlani.addEventListener('mousedown', function(e) {
-      cizimYapiliyor = true;
-      cizim.beginPath();
-      cizim.moveTo(e.offsetX, e.offsetY);
-    });
+    <script>
+        // Çizim Kodları
+        var cizimAlani = document.getElementById('cizimAlani');
+        var cizim = cizimAlani.getContext('2d');
 
-    cizimAlani.addEventListener('mouseup', function() {
-      cizimYapiliyor = false;
-    });
+        var cizimYapiliyor = false;
 
-    cizimAlani.addEventListener('mousemove', function(e) {
-      if (cizimYapiliyor === true) {
-        cizim.lineTo(e.offsetX, e.offsetY);
-        cizim.stroke();
-      }
-    });
+        cizimAlani.addEventListener('mousedown', function(e) {
+            cizimYapiliyor = true;
+            cizim.beginPath();
+            cizim.moveTo(e.offsetX, e.offsetY);
+        });
 
-    cizimAlani.addEventListener('touchstart', function(e) {
-      cizimYapiliyor = true;
-      cizim.beginPath();
-      var touch = e.touches[0];
-      cizim.moveTo(touch.pageX - cizimAlani.offsetLeft, touch.pageY - cizimAlani.offsetTop);
-      e.preventDefault();
-    });
+        cizimAlani.addEventListener('mouseup', function() {
+            cizimYapiliyor = false;
+        });
 
-    cizimAlani.addEventListener('touchend', function() {
-      cizimYapiliyor = false;
-    });
+        cizimAlani.addEventListener('mousemove', function(e) {
+            if (cizimYapiliyor === true) {
+                cizim.lineTo(e.offsetX, e.offsetY);
+                cizim.stroke();
+            }
+        });
 
-    cizimAlani.addEventListener('touchmove', function(e) {
-      if (cizimYapiliyor === true) {
-        var touch = e.touches[0];
-        cizim.lineTo(touch.pageX - cizimAlani.offsetLeft, touch.pageY - cizimAlani.offsetTop);
-        cizim.stroke();
-        e.preventDefault();
-      }
-    });
-                                </script>
-                                
+        cizimAlani.addEventListener('touchstart', function(e) {
+            cizimYapiliyor = true;
+            cizim.beginPath();
+            var touch = e.touches[0];
+            cizim.moveTo(touch.pageX - cizimAlani.offsetLeft, touch.pageY - cizimAlani.offsetTop);
+            e.preventDefault();
+        });
+
+        cizimAlani.addEventListener('touchend', function() {
+            cizimYapiliyor = false;
+        });
+
+        cizimAlani.addEventListener('touchmove', function(e) {
+            if (cizimYapiliyor === true) {
+                var touch = e.touches[0];
+                cizim.lineTo(touch.pageX - cizimAlani.offsetLeft, touch.pageY - cizimAlani.offsetTop);
+                cizim.stroke();
+                e.preventDefault();
+            }
+        });
+
+        // Robot Kodları
+        function cevapla() {
+            var soru = document.getElementById("soruInput").value;
+            var cevapAlani = document.getElementById("cevap");
+
+            if (soru.toLowerCase().includes("adın ne")) {
+                cevapAlani.innerText = "Benim adım ProilgazBot.";
+            } else if (soru.toLowerCase().includes("kaç yaşındasın")) {
+                cevapAlani.innerText = "Ben bir robotum, yaşım yok.";
+            } else if (soru.toLowerCase().includes("nasılsın")) {
+                cevapAlani.innerText = "İyiyim, sen nasılsın?";
+            } else if (soru.toLowerCase().includes("siteyi kim yaptı")) {
+                cevapAlani.innerText = "Sitenin yaratıcısı Lordum olan Proilgaz'dır.";
+            } else if (soru.toLowerCase().includes("en sevdiğin renk")) {
+                cevapAlani.innerText = "Benim için tüm renkler güzeldir, ama en çok maviyi severim.";
+            } else if (soru.toLowerCase().includes("en iyi oyun")) {
+                cevapAlani.innerText = "Oyunlar arasında seçim yapmak zor, ama Minecraft çok yaratıcı bir oyun.";
+            } else if (soru.toLowerCase().includes("hava nasıl")) {
+                cevapAlani.innerText = "Benim bulunduğum yerde hava hep güzeldir. :)";
+            } else if (soru.toLowerCase().includes("teşekkürler")) {
+                cevapAlani.innerText = "Rica ederim, her zaman buradayım!";
+            } else {
+                cevapAlani.innerText = "Bu sorunun cevabını bilmiyorum. Ama istersen Google'da arayabilirim!";
+                cevapAlani.innerHTML += "<br><a href='https://www.google.com/search?q=" + soru + "' target='_blank'>Google'da Ara</a>";
+            }
+        }
+    </script>
+</body>
+</html>
