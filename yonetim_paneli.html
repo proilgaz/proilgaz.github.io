@@ -1,1 +1,48 @@
 <h1>Gizli Kontrol Sayfası! Burası sana özel.</h1>
+<h1>Buraya Çizebilirsin!</h1>
+<canvas id="cizimAlani" width="350" height="250" style="border:1px solid #000;"></canvas>
+<script>
+    var cizimAlani = document.getElementById('cizimAlani');
+    var cizim = cizimAlani.getContext('2d');
+
+    var cizimYapiliyor = false;
+
+    cizimAlani.addEventListener('mousedown', function(e) {
+      cizimYapiliyor = true;
+      cizim.beginPath();
+      cizim.moveTo(e.offsetX, e.offsetY);
+    });
+
+    cizimAlani.addEventListener('mouseup', function() {
+      cizimYapiliyor = false;
+    });
+
+    cizimAlani.addEventListener('mousemove', function(e) {
+      if (cizimYapiliyor === true) {
+        cizim.lineTo(e.offsetX, e.offsetY);
+        cizim.stroke();
+      }
+    });
+
+    cizimAlani.addEventListener('touchstart', function(e) {
+      cizimYapiliyor = true;
+      cizim.beginPath();
+      var touch = e.touches[0];
+      cizim.moveTo(touch.pageX - cizimAlani.offsetLeft, touch.pageY - cizimAlani.offsetTop);
+      e.preventDefault();
+    });
+
+    cizimAlani.addEventListener('touchend', function() {
+      cizimYapiliyor = false;
+    });
+
+    cizimAlani.addEventListener('touchmove', function(e) {
+      if (cizimYapiliyor === true) {
+        var touch = e.touches[0];
+        cizim.lineTo(touch.pageX - cizimAlani.offsetLeft, touch.pageY - cizimAlani.offsetTop);
+        cizim.stroke();
+        e.preventDefault();
+      }
+    });
+                                </script>
+                                
