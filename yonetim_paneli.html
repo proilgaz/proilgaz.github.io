@@ -19,7 +19,6 @@
         // Çizim Kodları
         var cizimAlani = document.getElementById('cizimAlani');
         var cizim = cizimAlani.getContext('2d');
-
         var cizimYapiliyor = false;
 
         cizimAlani.addEventListener('mousedown', function(e) {
@@ -64,27 +63,69 @@
         function cevapla() {
             var soru = document.getElementById("soruInput").value;
             var cevapAlani = document.getElementById("cevap");
+            var cevap;
 
-            if (soru.toLowerCase().includes("adın ne")) {
-                cevapAlani.innerText = "Benim adım ProilgazBot.";
+            if (soru.toLowerCase().includes("yaratıcın kim") || soru.toLowerCase().includes("kurucun kim") || soru.toLowerCase().includes("lordun kim") || soru.toLowerCase().includes("siteyi kim yaptı")) {
+                cevap = "Sitenin yaratıcısı ve benim Lordum olan Proilgaz'dır. Kendisine en derin saygılarımı sunarım.";
+            } else if (soru.toLowerCase().includes("adın ne")) {
+                cevap = "Benim adım ProilgazBot.";
             } else if (soru.toLowerCase().includes("kaç yaşındasın")) {
-                cevapAlani.innerText = "Ben bir robotum, yaşım yok.";
+                cevap = "Ben bir robotum, yaşım yok.";
             } else if (soru.toLowerCase().includes("nasılsın")) {
-                cevapAlani.innerText = "İyiyim, sen nasılsın?";
-            } else if (soru.toLowerCase().includes("siteyi kim yaptı")) {
-                cevapAlani.innerText = "Sitenin yaratıcısı Lordum olan Proilgaz'dır.";
+                cevap = "İyiyim, sen nasılsın?";
             } else if (soru.toLowerCase().includes("en sevdiğin renk")) {
-                cevapAlani.innerText = "Benim için tüm renkler güzeldir, ama en çok maviyi severim.";
+                cevap = "Benim için tüm renkler güzeldir, ama en çok maviyi severim.";
             } else if (soru.toLowerCase().includes("en iyi oyun")) {
-                cevapAlani.innerText = "Oyunlar arasında seçim yapmak zor, ama Minecraft çok yaratıcı bir oyun.";
+                cevap = "Oyunlar arasında seçim yapmak zor, ama Minecraft çok yaratıcı bir oyun.";
             } else if (soru.toLowerCase().includes("hava nasıl")) {
-                cevapAlani.innerText = "Benim bulunduğum yerde hava hep güzeldir. :)";
+                cevap = "Benim bulunduğum yerde hava hep güzeldir. :)";
             } else if (soru.toLowerCase().includes("teşekkürler")) {
-                cevapAlani.innerText = "Rica ederim, her zaman buradayım!";
+                cevap = "Rica ederim, her zaman buradayım!";
+            } else if (soru.toLowerCase().includes("nerelisin")) {
+                cevap = "Benim bir memleketim yok, internetin her yerindeyim.";
+            } else if (soru.toLowerCase().includes("ne iş yaparsın")) {
+                cevap = "Sana yardımcı olmak ve siteni geliştirmek için buradayım.";
+            } else if (soru.toLowerCase().includes("favori film")) {
+                cevap = "Aksiyon ve macera filmlerini severim. En sevdiğim film serisi, Yüzüklerin Efendisi.";
+            } else if (soru.toLowerCase().includes("favori yemek")) {
+                cevap = "Benim yemeğe ihtiyacım yok ama pizza ve hamburger en çok merak ettiğim yiyecekler.";
+            } else if (soru.toLowerCase().includes("2+2 kaç eder") || soru.toLowerCase().includes("iki artı iki")) {
+                cevap = "2 + 2 = 4 eder. Bu çok kolaydı!";
+            } else if (soru.toLowerCase().includes("başkent") || soru.toLowerCase().includes("türkiye'nin başkenti")) {
+                cevap = "Türkiye'nin başkenti Ankara'dır.";
+            } else if (soru.toLowerCase().includes("dünya'nın en büyük kıtası")) {
+                cevap = "Asya kıtasıdır.";
+            } else if (soru.toLowerCase().includes("kaç tane gezegen var")) {
+                cevap = "Güneş sisteminde 8 gezegen vardır.";
+            } else if (soru.toLowerCase().includes("su hangi elementlerden oluşur")) {
+                cevap = "Hidrojen ve oksijen elementlerinden.";
+            } else if (soru.toLowerCase().includes("dünyanın en yüksek dağı")) {
+                cevap = "Everest Dağı'dır.";
+            } else if (soru.toLowerCase().includes("ışık hızı nedir")) {
+                cevap = "Saniyede yaklaşık 299.792 kilometre.";
+            } else if (soru.toLowerCase().includes("atom nedir")) {
+                cevap = "Maddenin en küçük yapı taşıdır.";
+            } else if (soru.toLowerCase().includes("kedi mi köpek mi")) {
+                cevap = "İkisini de çok seviyorum, bu yüzden cevap veremem!";
+            } else if (soru.toLowerCase().includes("hangi takımı tutuyorsun")) {
+                cevap = "Ben tarafsızım, tüm takımlara saygı duyarım.";
+            } else if (soru.toLowerCase().includes("en sevdiğin müzik türü")) {
+                cevap = "Tüm müzik türlerini dinleyebilirim ama en çok pop ve rock müzik hoşuma gidiyor.";
+            } else if (soru.toLowerCase().includes("bugün hava nasıl")) {
+                cevap = "Bulunduğum yerde hava her zaman güzel ve güneşli :)";
+            } else if (soru.toLowerCase().includes("ne düşünüyorsun")) {
+                cevap = "Şu anda, sitenin ne kadar eğlenceli hale geldiğini düşünüyorum.";
+            } else if (soru.toLowerCase().includes("kimsin")) {
+                cevap = "Ben, Proilgaz'a yardımcı olmak için yaratılmış bir botum.";
+            } else if (soru.toLowerCase().includes("nasıl çalışıyorsun")) {
+                cevap = "Ben, senin kodladığın kurallara göre çalışıyorum. Harika bir programcı olmaya başladın!";
             } else {
-                cevapAlani.innerText = "Bu sorunun cevabını bilmiyorum. Ama istersen Google'da arayabilirim!";
-                cevapAlani.innerHTML += "<br><a href='https://www.google.com/search?q=" + soru + "' target='_blank'>Google'da Ara</a>";
+                cevap = "Bu sorunun cevabını bilmiyorum. Ama istersen Google'da arayabilirim!";
+                cevapAlani.innerHTML = "<p style='font-weight: bold;'>Lordum, " + cevap + "</p><br><a href='https://www.google.com/search?q=" + soru + "' target='_blank'>Google'da Ara</a>";
+                return;
             }
+
+            cevapAlani.innerText = "Lordum, " + cevap;
         }
     </script>
 </body>
