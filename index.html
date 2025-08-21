@@ -275,3 +275,37 @@
     }
                            </style>
                            
+<hr>
+<h1>Sihirli Hikaye Yazarı</h1>
+<p>Lütfen hikayeniz için anahtar kelimeleri girin:</p>
+
+<label for="ana-karakter">Ana Karakter Adı:</label>
+<input type="text" id="ana-karakter" placeholder="Örn: Aslan" style="margin-bottom: 10px;"><br>
+
+<label for="mekan">Hikaye Mekanı:</label>
+<input type="text" id="mekan" placeholder="Örn: Gizemli Orman" style="margin-bottom: 10px;"><br>
+
+<label for="nesne">Sihirli Nesne:</label>
+<input type="text" id="nesne" placeholder="Örn: Parlayan Anahtar" style="margin-bottom: 10px;"><br>
+
+<button onclick="hikayeYaz()">Hikaye Yaz!</button>
+
+<p id="hikaye-sonucu" style="font-size: 18px; line-height: 1.5; margin-top: 20px;"></p>
+<script>
+    function hikayeYaz() {
+        const anaKarakter = document.getElementById('ana-karakter').value || "kahraman";
+        const mekan = document.getElementById('mekan').value || "orman";
+        const nesne = document.getElementById('nesne').value || "parlayan kılıç";
+        const sonucAlani = document.getElementById('hikaye-sonucu');
+
+        const hikayeler = [
+            `Bir zamanlar, ${mekan} adında sihirli bir yerde yaşayan cesur bir ${anaKarakter} vardı. Bir gün, kayıp ${nesne} nesnesini bulmak için uzun bir yolculuğa çıktı ve büyük bir maceraya atıldı.`,
+            `Gecenin en karanlık saatinde, ${anaKarakter} gizemli bir harita buldu. Bu harita, onu ${mekan} içindeki eski bir tapınağa yönlendiriyordu. İçeride onu, efsanevi ${nesne} bekliyordu.`,
+            `Uzay gemisi pilotu olan ${anaKarakter}, gemisinin motoru arızalanınca kendini ${mekan} gezegeninde buldu. Tek umudu, kayıp ${nesne} nesnesini bulmaktı. Onu bulmak için zorlu bir göreve başladı.`
+        ];
+
+        const secilenHikaye = hikayeler[Math.floor(Math.random() * hikayeler.length)];
+
+        sonucAlani.innerText = secilenHikaye;
+    }
+</script>
