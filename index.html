@@ -179,3 +179,99 @@
     </script>
   </body>
 </html>
+<hr>
+<h1>Hafıza Oyunu</h1>
+<div id="hafiza-oyunu" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 300px; margin: 0 auto;">
+    </div>
+<script>
+    const kartlar = [
+        'A', 'A', 'B', 'B', 'C', 'C', 'D', 'D',
+        'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'
+    ];
+
+    let acikKartlar = [];
+    let eslesenKartlar = [];
+
+    function karistir(dizi) {
+        for (let i = dizi.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [dizi[i], dizi[j]] = [dizi[j], dizi[i]];
+        }
+        return dizi;
+    }
+
+    function oyunBaslat() {
+        const karistirilmisKartlar = karistir(kartlar);
+        const oyunAlani = document.getElementById('hafiza-oyunu');
+        oyunAlani.innerHTML = '';
+        acikKartlar = [];
+        eslesenKartlar = [];
+
+        karistirilmisKartlar.forEach(deger => {
+            const kartElementi = document.createElement('div');
+            kartElementi.classList.add('kart');
+            kartElementi.innerText = '?';
+            kartElementi.dataset.deger = deger;
+            kartElementi.addEventListener('click', () => kartAc(kartElementi));
+            oyunAlani.appendChild(kartElementi);
+        });
+    }
+
+    function kartAc(kart) {
+        if (acikKartlar.length < 2 && !kart.classList.contains('eslesti')) {
+            kart.innerText = kart.dataset.deger;
+            kart.classList.add('acik');
+            acikKartlar.push(kart);
+
+            if (acikKartlar.length === 2) {
+                setTimeout(eslesmeKontrol, 1000);
+            }
+        }
+    }
+
+    function eslesmeKontrol() {
+        const [kart1, kart2] = acikKartlar;
+        if (kart1.dataset.deger === kart2.dataset.deger) {
+            kart1.classList.add('eslesti');
+            kart2.classList.add('eslesti');
+            eslesenKartlar.push(kart1, kart2);
+            if (eslesenKartlar.length === kartlar.length) {
+                alert('Tebrikler, oyunu tamamladın!');
+            }
+        } else {
+            kart1.innerText = '?';
+            kart2.innerText = '?';
+            kart1.classList.remove('acik');
+            kart2.classList.remove('acik');
+        }
+        acikKartlar = [];
+    }
+
+    oyunBaslat();
+</script>
+<style>
+    .kart {
+        width: 60px;
+        height: 60px;
+        background-color: #f0f0f0;
+        border: 2px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+        user-select: none;
+        transition: transform 0.3s;
+    }
+
+    .kart.acik {
+        background-color: #e0e0e0;
+        transform: rotateY(180deg);
+    }
+
+    .kart.eslesti {
+        background-color: #d0f0d0;
+        cursor: default;
+    }
+                           </style>
+                           
