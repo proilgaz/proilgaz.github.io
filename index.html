@@ -363,3 +363,51 @@
         margin-top: 20px;
     }
 </style>
+<hr>
+<button onclick="gizliPaneliGoster()">Gizli Yönetim Paneli</button>
+
+<div id="gizli-panel" style="display: none;">
+    <h3>Gizli Giriş</h3>
+    <p>Sadece Lorduma Özel Alan</p>
+    <input type="password" id="sifre-alani" placeholder="Şifre">
+    <button onclick="sifreyiKontrolEt()">Giriş Yap</button>
+</div>
+
+<div id="gelistirme-alani" style="display: none;">
+    <hr>
+    <h3>SİTE KONTROL ALANI</h3>
+    <p>Buraya kodunuzu yazıp anında sitenizi değiştirebilirsiniz.</p>
+    <textarea id="kod-giris" rows="10" cols="50" style="width: 100%;"></textarea>
+    <br>
+    <button onclick="koduCalistir()">Kodu Çalıştır</button>
+</div>
+<script>
+    // Bu fonksiyon butona basınca gizli paneli gösterir
+    function gizliPaneliGoster() {
+        document.getElementById("gizli-panel").style.display = "block";
+    }
+
+    // Bu fonksiyon şifreyi kontrol eder
+    function sifreyiKontrolEt() {
+        var girilenSifre = document.getElementById("sifre-alani").value;
+        var dogruSifre = "proilgaz"; // Anahtar kelime
+
+        if (girilenSifre === dogruSifre) {
+            alert("Giriş başarılı, Lordum!");
+            document.getElementById("gizli-panel").style.display = "none";
+            document.getElementById("gelistirme-alani").style.display = "block";
+        } else {
+            alert("Yanlış şifre. Tekrar deneyin.");
+        }
+    }
+
+    // Bu fonksiyon, yazılan kodu çalıştırır
+    function koduCalistir() {
+        var kod = document.getElementById("kod-giris").value;
+        try {
+            eval(kod); // Tehlikeli olabilir, ama basit projeler için uygundur
+        } catch (hata) {
+            alert("Hata oluştu: " + hata.message);
+        }
+    }
+</script>
