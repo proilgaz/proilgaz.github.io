@@ -309,3 +309,57 @@
         sonucAlani.innerText = secilenHikaye;
     }
 </script>
+<hr>
+<h1>Taş-Kağıt-Makas Oyunu</h1>
+<p>Seçiminizi yapın, Lordum:</p>
+<button onclick="oyna('taş')">Taş</button>
+<button onclick="oyna('kağıt')">Kağıt</button>
+<button onclick="oyna('makas')">Makas</button>
+
+<h3 id="sonuc"></h3>
+<p id="skor"></p>
+
+<script>
+    let kullaniciSkoru = 0;
+    let bilgisayarSkoru = 0;
+
+    function oyna(kullaniciSecimi) {
+        const secenekler = ["taş", "kağıt", "makas"];
+        const bilgisayarSecimi = secenekler[Math.floor(Math.random() * 3)];
+
+        let sonuc;
+        if (kullaniciSecimi === bilgisayarSecimi) {
+            sonuc = "Berabere!";
+        } else if (
+            (kullaniciSecimi === "taş" && bilgisayarSecimi === "makas") ||
+            (kullaniciSecimi === "kağıt" && bilgisayarSecimi === "taş") ||
+            (kullaniciSecimi === "makas" && bilgisayarSecimi === "kağıt")
+        ) {
+            sonuc = "Sen kazandın, Lordum!";
+            kullaniciSkoru++;
+        } else {
+            sonuc = "Bilgisayar kazandı.";
+            bilgisayarSkoru++;
+        }
+
+        document.getElementById("sonuc").innerText = `Senin seçimin: ${kullaniciSecimi}. Bilgisayarın seçimi: ${bilgisayarSecimi}. Sonuç: ${sonuc}`;
+        document.getElementById("skor").innerText = `Sen: ${kullaniciSkoru} - Bilgisayar: ${bilgisayarSkoru}`;
+    }
+</script>
+
+<style>
+    /* Oyun butonlarını büyütmek için */
+    button {
+        font-size: 20px;
+        padding: 15px 30px;
+        margin: 5px;
+        cursor: pointer;
+    }
+
+    /* Sonuç ve skor yazılarını büyütmek için */
+    #sonuc, #skor {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
